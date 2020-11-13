@@ -42,6 +42,7 @@ const LocationMapPickerView = ({
         })
         .catch((err) => {
           if (err === "ZERO_RESULTS") setIsNotFound(true);
+          onPositionChanged(null);
         });
     }
   }, []);
