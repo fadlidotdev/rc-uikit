@@ -71,17 +71,33 @@ var LocationMapPickerView = function LocationMapPickerView(_ref) {
         }
       }).catch(function (err) {
         if (err === "ZERO_RESULTS") setIsNotFound(true);
-        console.log(">>>jalan");
         onPositionChanged(null);
         setCoordinate(undefined);
       });
     }
-  }, [defaultAddress, defaultLatLng, onPositionChanged]);
+  }, []);
 
   var handlePositionChangedMarker = function handlePositionChangedMarker(coord) {
     var latLng = coord.latLng;
     var lat = latLng.lat();
     var lng = latLng.lng();
+    var location = {
+      lat: lat,
+      lng: lng
+    };
+    (0, _usePlacesAutocomplete.getGeocode)({
+      location: location
+    }).then(function (result) {
+      var _result$;
+
+      var address = result && ((_result$ = result[0]) === null || _result$ === void 0 ? void 0 : _result$.formatted_address) || "";
+      setCoordinate(location);
+      setIsNotFound(false);
+      onPositionChanged({
+        address: address,
+        location: location
+      });
+    });
     setCoordinate({
       lat: lat,
       lng: lng

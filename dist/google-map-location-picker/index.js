@@ -28,6 +28,5 @@ var GoogleMapLocationPicker = function GoogleMapLocationPicker(_ref) {
   }));
 };
 
-var _default = /*#__PURE__*/_react.default.memo(GoogleMapLocationPicker);
-
+var _default = GoogleMapLocationPicker;
 exports.default = _default;

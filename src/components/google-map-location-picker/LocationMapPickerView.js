@@ -42,17 +42,27 @@ const LocationMapPickerView = ({
         })
         .catch((err) => {
           if (err === "ZERO_RESULTS") setIsNotFound(true);
-          console.log(">>>jalan");
           onPositionChanged(null);
           setCoordinate(undefined);
         });
     }
-  }, [defaultAddress, defaultLatLng, onPositionChanged]);
+  }, []);
 
   const handlePositionChangedMarker = (coord) => {
     const { latLng } = coord;
     const lat = latLng.lat();
     const lng = latLng.lng();
+    const location = { lat, lng };
+
+    getGeocode({ location }).then((result) => {
+      const address = (result && result[0]?.formatted_address) || "";
+      setCoordinate(location);
+      setIsNotFound(false);
+      onPositionChanged({
+        address,
+        location,
+      });
+    });
 
     setCoordinate({ lat, lng });
   };

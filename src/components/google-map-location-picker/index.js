@@ -19,4 +19,4 @@ const GoogleMapLocationPicker = ({
   );
 };
 
-export default React.memo(GoogleMapLocationPicker);
+export default GoogleMapLocationPicker;

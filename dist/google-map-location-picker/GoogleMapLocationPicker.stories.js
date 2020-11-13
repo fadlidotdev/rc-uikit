@@ -31,24 +31,54 @@ var Component = function Component() {
       address = _React$useState4[0],
       setAddress = _React$useState4[1];
 
+  var _React$useState5 = _react.default.useState(false),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      visible = _React$useState6[0],
+      setVisible = _React$useState6[1];
+
+  var _React$useState7 = _react.default.useState(null),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      latLng = _React$useState8[0],
+      setLatLng = _React$useState8[1];
+
+  console.log(">>>data", data);
+
   var onPositionChanged = function onPositionChanged(data) {
     setData(data);
   };
 
-  console.log(">>>data", data);
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
-    className: "btn btn-sm btn-primary mb-2",
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "mb-2"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn btn-sm btn-primary m-1",
     onClick: function onClick() {
-      return setAddress("Universitas Telkom");
+      return setVisible(false);
+    }
+  }, "Hide"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn btn-sm btn-primary m-1",
+    onClick: function onClick() {
+      setVisible(true);
+      setAddress("Universitas Telkom");
     }
   }, "Set Known Location"), /*#__PURE__*/_react.default.createElement("button", {
-    className: "btn btn-sm btn-primary mb-2",
+    className: "btn btn-sm btn-primary m-1",
     onClick: function onClick() {
-      return setAddress("asd");
+      setVisible(true);
+      setAddress("asd");
     }
-  }, "Set Unknown Location"), /*#__PURE__*/_react.default.createElement(_index.default, {
+  }, "Set Unknown Location"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn btn-sm btn-primary m-1",
+    onClick: function onClick() {
+      setVisible(true);
+      setLatLng({
+        lat: -6.974028,
+        lng: 107.6305287
+      });
+    }
+  }, "Set from LatLng")), visible && /*#__PURE__*/_react.default.createElement(_index.default, {
     googleMapsApiKey: "API_KEY",
     defaultAddress: address,
+    defaultLatLng: latLng,
     onPositionChanged: onPositionChanged
   }));
 };
