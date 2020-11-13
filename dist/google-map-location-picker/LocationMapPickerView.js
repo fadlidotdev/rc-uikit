@@ -71,6 +71,7 @@ var LocationMapPickerView = function LocationMapPickerView(_ref) {
         }
       }).catch(function (err) {
         if (err === "ZERO_RESULTS") setIsNotFound(true);
+        console.log(">>>jalan");
         onPositionChanged(null);
         setCoordinate(undefined);
       });

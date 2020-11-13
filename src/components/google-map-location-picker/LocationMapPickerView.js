@@ -42,6 +42,7 @@ const LocationMapPickerView = ({
         })
         .catch((err) => {
           if (err === "ZERO_RESULTS") setIsNotFound(true);
+          console.log(">>>jalan");
           onPositionChanged(null);
           setCoordinate(undefined);
         });

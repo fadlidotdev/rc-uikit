@@ -4,11 +4,15 @@ import { storiesOf } from "@storybook/react";
 import GoogleMapLocationPicker from "./index";
 
 const Component = () => {
+  const [data, setData] = React.useState();
   const [address, setAddress] = React.useState("universitas telkom");
 
   const onPositionChanged = (data) => {
-    console.log(">>>data", data);
+    setData(data);
   };
+
+  console.log(">>>data", data);
+
   return (
     <>
       <button
@@ -24,7 +28,7 @@ const Component = () => {
         Set Unknown Location
       </button>
       <GoogleMapLocationPicker
-        googleMapsApiKey="YOU_API_KEY"
+        googleMapsApiKey="API_KEY"
         defaultAddress={address}
         onPositionChanged={onPositionChanged}
       />

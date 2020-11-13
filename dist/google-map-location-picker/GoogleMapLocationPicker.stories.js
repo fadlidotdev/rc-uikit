@@ -21,15 +21,21 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Component = function Component() {
-  var _React$useState = _react.default.useState("universitas telkom"),
+  var _React$useState = _react.default.useState(),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      address = _React$useState2[0],
-      setAddress = _React$useState2[1];
+      data = _React$useState2[0],
+      setData = _React$useState2[1];
+
+  var _React$useState3 = _react.default.useState("universitas telkom"),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      address = _React$useState4[0],
+      setAddress = _React$useState4[1];
 
   var onPositionChanged = function onPositionChanged(data) {
-    console.log(">>>data", data);
+    setData(data);
   };
 
+  console.log(">>>data", data);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
     className: "btn btn-sm btn-primary mb-2",
     onClick: function onClick() {
@@ -41,7 +47,7 @@ var Component = function Component() {
       return setAddress("asd");
     }
   }, "Set Unknown Location"), /*#__PURE__*/_react.default.createElement(_index.default, {
-    googleMapsApiKey: "YOU_API_KEY",
+    googleMapsApiKey: "API_KEY",
     defaultAddress: address,
     onPositionChanged: onPositionChanged
   }));
