@@ -16,7 +16,7 @@ const LocationMapPickerView = ({
   const [coordinate, setCoordinate] = React.useState(null);
   const [isNotFound, setIsNotFound] = React.useState(false);
 
-  React.useState(() => {
+  React.useEffect(() => {
     if (defaultLatLng || defaultAddress !== "") {
       let payload = defaultLatLng
         ? { location: defaultLatLng }
@@ -33,7 +33,7 @@ const LocationMapPickerView = ({
             };
 
             setCoordinate(location);
-
+            setIsNotFound(false);
             onPositionChanged({
               location,
               address: data.formatted_address,
@@ -43,9 +43,10 @@ const LocationMapPickerView = ({
         .catch((err) => {
           if (err === "ZERO_RESULTS") setIsNotFound(true);
           onPositionChanged(null);
+          setCoordinate(undefined);
         });
     }
-  }, []);
+  }, [defaultAddress, defaultLatLng, onPositionChanged]);
 
   const handlePositionChangedMarker = (coord) => {
     const { latLng } = coord;
@@ -70,22 +71,22 @@ const LocationMapPickerView = ({
         />
       </div>
 
-      {isNotFound && (
-        <p className="color-red mb-4">Koordinat tidak ditemukan</p>
+      {isNotFound ? (
+        <p className="text-danger mb-2">Koordinat tidak ditemukan</p>
+      ) : (
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          zoom={15}
+          center={coordinate}
+          onClick={handlePositionChangedMarker}
+        >
+          <Marker
+            position={coordinate}
+            draggable
+            onDragEnd={handlePositionChangedMarker}
+          />
+        </GoogleMap>
       )}
-
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        zoom={15}
-        center={coordinate}
-        onClick={handlePositionChangedMarker}
-      >
-        <Marker
-          position={coordinate}
-          draggable
-          onDragEnd={handlePositionChangedMarker}
-        />
-      </GoogleMap>
     </>
   );
 };

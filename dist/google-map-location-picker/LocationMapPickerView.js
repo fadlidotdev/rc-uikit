@@ -47,7 +47,7 @@ var LocationMapPickerView = function LocationMapPickerView(_ref) {
       isNotFound = _React$useState4[0],
       setIsNotFound = _React$useState4[1];
 
-  _react.default.useState(function () {
+  _react.default.useEffect(function () {
     if (defaultLatLng || defaultAddress !== "") {
       var payload = defaultLatLng ? {
         location: defaultLatLng
@@ -63,6 +63,7 @@ var LocationMapPickerView = function LocationMapPickerView(_ref) {
             lng: data.geometry.location.lng()
           };
           setCoordinate(location);
+          setIsNotFound(false);
           onPositionChanged({
             location: location,
             address: data.formatted_address
@@ -71,9 +72,10 @@ var LocationMapPickerView = function LocationMapPickerView(_ref) {
       }).catch(function (err) {
         if (err === "ZERO_RESULTS") setIsNotFound(true);
         onPositionChanged(null);
+        setCoordinate(undefined);
       });
     }
-  }, []);
+  }, [defaultAddress, defaultLatLng, onPositionChanged]);
 
   var handlePositionChangedMarker = function handlePositionChangedMarker(coord) {
     var latLng = coord.latLng;
@@ -96,9 +98,9 @@ var LocationMapPickerView = function LocationMapPickerView(_ref) {
   }, /*#__PURE__*/_react.default.createElement(_AutoCompleteView.default, {
     onGetCoordinates: handleGetCoordinates,
     coordinate: coordinate
-  })), isNotFound && /*#__PURE__*/_react.default.createElement("p", {
-    className: "color-red mb-4"
-  }, "Koordinat tidak ditemukan"), /*#__PURE__*/_react.default.createElement(_api.GoogleMap, {
+  })), isNotFound ? /*#__PURE__*/_react.default.createElement("p", {
+    className: "text-danger mb-2"
+  }, "Koordinat tidak ditemukan") : /*#__PURE__*/_react.default.createElement(_api.GoogleMap, {
     mapContainerStyle: containerStyle,
     zoom: 15,
     center: coordinate,
